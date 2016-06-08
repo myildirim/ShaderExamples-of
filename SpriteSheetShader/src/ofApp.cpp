@@ -15,7 +15,7 @@ void ofApp::setup(){
     ofEnableArbTex();
 
 
-    numVertices = 1;
+	numVertices = 5;
 
     for(int i=0; i<numVertices; i++){
         float x = ofRandom(0, ofGetWidth());
@@ -53,7 +53,6 @@ void ofApp::draw(){
 
     vbo.draw(GL_POINTS, 0, (int)points.size());
 
-//	texture.draw(0,0);
 	shader.end();
 
     gui.draw();
