@@ -28,8 +28,7 @@ public:
 
     ofVbo vbo;
     vector <ofVec3f> points;
-    vector <ofFloatColor> colors;
-    vector <ofVec3f> normals;
+	vector <float> types;
     int numVertices;
 
     void setupGui();

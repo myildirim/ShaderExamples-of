@@ -12,6 +12,8 @@ uniform float PointSize;
 uniform vec2 TextureCoordPointSize;
 uniform vec2 TextureCoordIn;
 
+in float t; // type
+
 in vec4 Position;
 in vec4 ObjectCenter;
 // The top left corner of a given sprite in the sprite-sheet
@@ -23,7 +25,8 @@ out vec2 TextureSize;
 void main(void)
 {
     gl_Position = modelViewProjectionMatrix * Position;
-    TextureCoord = TextureCoordIn;
+    TextureCoord.x = t;
+    TextureCoord.y = TextureCoordIn.y;
     TextureSize = vec2(TextureCoordPointSize.x, TextureCoordPointSize.y);
 
     // This is optional, it is a quick and dirty way to make the points stay the same

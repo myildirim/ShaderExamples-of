@@ -15,26 +15,33 @@ void ofApp::setup(){
     ofEnableArbTex();
 
 
-	numVertices = 5;
+	numVertices = 500;
 
+	types.resize(numVertices);
     for(int i=0; i<numVertices; i++){
         float x = ofRandom(0, ofGetWidth());
         float y = ofRandom(0, ofGetHeight());
         points.push_back(ofVec3f(x,y));
+		types.at(i) = 0.125 * int(ofRandom(8));
     }
 
-    points[0].x = ofGetWidth()/2;
+	points[0].x = ofGetWidth()/2;
     points[0].y = ofGetHeight()/2;
 
     setupGui();
     counter = 0.0;
+	shader.load("shaders/spriteShader");
+	vbo.setVertexData(&points[0], numVertices, GL_STATIC_DRAW);
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	shader.load("shaders/spriteShader");
 
-    vbo.setVertexData(&points[0], numVertices, GL_STATIC_DRAW);
+	vbo.setAttributeData(shader.getAttributeLocation("t"),
+						 &types[0], 1,
+			types.size(), GL_STATIC_DRAW, sizeof(float));
+
 }
 
 //--------------------------------------------------------------
@@ -48,7 +55,7 @@ void ofApp::draw(){
 	shader.begin();
     shader.setUniform1f("PointSize", pSize);
     shader.setUniform2f("TextureCoordPointSize", coordPSize->x, coordPSize->y);
-    shader.setUniform2f("TextureCoordIn", coordIn->x, coordIn->y);
+	shader.setUniform2f("TextureCoordIn", coordIn->x, coordIn->y);
     shader.setUniformTexture("Sampler", texture, 1);
 
     vbo.draw(GL_POINTS, 0, (int)points.size());
@@ -57,7 +64,10 @@ void ofApp::draw(){
 
     gui.draw();
 
-	ofDrawBitmapString("Use arrow keys to change the sprite", 20, 200);
+
+	ofSetColor(255);
+	ofDrawBitmapString("Use 'l' key to change the sprite", 20, 200);
+	ofDrawBitmapString("Framerate : " + ofToString(ofGetFrameRate()), 20, 220);
 
 }
 
@@ -78,14 +88,18 @@ void ofApp::setupGui()
 }
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if(counter>=1-0.125){
-        counter = 0;
-    } else {
-        counter += 0.125;
-    }
-    ofLogNotice("keyPressed") << counter;
-    coordIn = ofVec2f(counter,0);
-
+	if(key == 'a'){
+		shader.load("shaders/spriteShader");
+	} else if (key == 'l'){
+		for(int i=0; i<numVertices; i++){
+			float value = types.at(i);
+			if(value >= 1 - 0.125){
+				types.at(i) = 0;
+			} else {
+				types.at(i) += 0.125;
+			}
+		}
+	}
 }
 
 //--------------------------------------------------------------
