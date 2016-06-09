@@ -8,3 +8,5 @@ This example demonstrates:
 
 Uses GLSL ```#version 150```
 
+
+![alt tag](https://github.com/ixds/ShaderExamples-of/blob/master/CircleGridShader/Screen%20Shot%202016-06-08%20at%2014.43.12.png?raw=true)
