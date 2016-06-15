@@ -24,13 +24,6 @@ public:
 	ofShader shader;
 	ofVbo vbo;
 
-	ofImage carImage;
-	ofImage bikeImage;
-	ofImage busImage;
-	ofTexture carTexture;
-	ofTexture bikeTexture;
-	ofTexture busTexture;
-
 	vector<ofTexture> textureArray;
 
 	vector <ofVec3f> points;
@@ -40,5 +33,5 @@ public:
 	int numVertices;
 
 	void setUniformTexture(const ofTexture& tex, int textureLocation);
-        void initVbo();
+    void initVbo();
 };

@@ -6,6 +6,13 @@ void ofApp::setup(){
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	ofEnableBlendMode(OF_BLENDMODE_ADD);
 
+    // fill the textureArray with sweet, sweet pixels
+    ofImage carImage;
+    ofImage bikeImage;
+    ofImage busImage;
+    ofTexture carTexture;
+    ofTexture bikeTexture;
+    ofTexture busTexture;
 	ofDisableArbTex();
 	carImage.load("car.png");
 	bikeImage.load("bike.png");
@@ -31,7 +38,7 @@ void ofApp::update(){
 	for(int i=0; i<numVertices; i++){
 		ofVec3f point = points.at(i);
 		ofVec3f diff = ofVec3f(ofGetMouseX(), ofGetMouseY()) - point;
-		float angle = atan2(diff.x, diff.y);
+        float angle = atan2(diff.x, diff.y); // intentionally swapped @todo
 		normals.at(i).x = angle;
 	}
 
@@ -49,9 +56,11 @@ void ofApp::draw(){
 
 	int numTextures = textureArray.size();
 
-	vector<int> locations;
+    // set up a vector of ints to use as 'texture locations' on the gpu
+    vector<int> locations;
 	locations.resize(numTextures);
 
+    // bind textures to locations
 	for(int i=0; i<numTextures; i++){
 		// set texture location
 		locations[i] = i+1;
@@ -59,7 +68,7 @@ void ofApp::draw(){
 		setUniformTexture(textureArray[i],locations[i]);
 	}
 
-	// pass the textures to the shader
+    // pass the textures (as an array) to the shader
 	const int * l = &locations[0];
 	shader.setUniform1iv("textureArray", l, numTextures);
 
@@ -89,8 +98,8 @@ void ofApp::initVbo(){
 		float type = ofRandom(0,3);
 		normals.push_back(ofVec3f(angle,size,type));
 
-		// set vertex color
-		ofColor color(255,0,0);
+        // set vertex color (to white)
+        ofColor color( 255 );
 		color.set(color.r, color.g, color.b, 255);
 
 		ofFloatColor normalizedColor = color.getNormalized();
@@ -106,7 +115,7 @@ void ofApp::keyPressed(int key){
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    shader.load("shaders/vertexRotationShader");
 }
 
 //--------------------------------------------------------------

@@ -11,7 +11,6 @@ in vec2 texcoord;
 out vec4 colorVarying;
 
 out mat2 angle;
-out vec2 corner;
 out float type;
 out float alpha;
 
@@ -29,7 +28,6 @@ void main(){
     // normal[2] is the type
     type = normal[2];
 
-    corner = texcoord;
     alpha = color.a;
 }
 

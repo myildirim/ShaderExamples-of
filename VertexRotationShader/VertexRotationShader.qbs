@@ -15,6 +15,8 @@ Project{
             'src/main.cpp',
             'src/ofApp.cpp',
             'src/ofApp.h',
+            'bin/data/shaders/vertexRotationShader.vert',
+            'bin/data/shaders/vertexRotationShader.frag'
         ]
 
         of.addons: [
