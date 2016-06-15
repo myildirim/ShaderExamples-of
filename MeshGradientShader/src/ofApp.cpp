@@ -21,11 +21,6 @@ void ofApp::setup(){
 		mesh.addVertex(point2);
 	}
 
-//	for(int i=0; i<numVertices; i++){
-//		ofVec2f point(ofRandom(0, ofGetWidth()),
-//					  ofRandom(0, ofGetHeight()));
-//		mesh.addVertex(point);
-//	}
 
 	shader.load("shaders/gradientShader.vert",
 				"shaders/gradientShader.frag",
@@ -64,7 +59,7 @@ void ofApp::setupGui()
 {
 	gui.setup("settings");
 
-	gui.add(maxDistance.setup("maxDistance", 150, 0, ofGetWidth()/2));
+	gui.add(maxDistance.setup("maxDistance", 140, 0, ofGetWidth()/2));
 	gui.add(lineThickness.setup("lineThickness", 5, 0, 10));
 
 	gui.add(color.setup("color", ofColor(100, 100, 140), ofColor(0, 0), ofColor(255, 255)));
