@@ -40,4 +40,5 @@ public:
 	int numVertices;
 
 	void setUniformTexture(const ofTexture& tex, int textureLocation);
+        void initVbo();
 };
