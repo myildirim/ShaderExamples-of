@@ -26,9 +26,10 @@ class ofApp : public ofBaseApp{
 		ofPath path;
 		ofPolyline polyline;
 		ofPolyline polylineToDraw;
+
 		ofMesh mesh;
-		ofMesh meshUp;
-		ofMesh meshDown;
+		ofMesh meshUp; // expand the line to one direction for debug
+		ofMesh meshDown; // expand the line to other direction for debug
 
 
 		ofxPanel gui;

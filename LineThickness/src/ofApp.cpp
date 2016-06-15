@@ -57,6 +57,8 @@ void ofApp::draw(){
 	ofDrawBitmapString("fps: " + ofToString((int)ofGetFrameRate())
 					   + "\nPress 's' to toggle shader: " + (doShader ? "ON" : "OFF")
 					   + "\nPress 'a' to reload shader."
+					   + "\nClick or drag mouse to add vertices"
+					   + "\nDisable debug to increase performance"
 					   + "\nNumber of vertices: " + ofToString(polyline.getVertices().size()),
 					   20, 200);
 }
@@ -68,9 +70,6 @@ void ofApp::keyPressed(int key){
 	}
 	else if( key == 'a' ){
 		shader.load("shaders/vert.glsl", "shaders/frag.glsl", "shaders/geom.glsl");
-	}
-	else if( key == 'a' ){
-		generateMesh();
 	}
 }
 
@@ -84,15 +83,12 @@ void ofApp::generateMesh(){
 	for(int i=0; i<polylineToDraw.getVertices().size(); i++){
 		ofVec3f n0 =  polylineToDraw.getNormalAtIndex(i);
 		ofPoint p0 = polylineToDraw.getVertices()[i];
-//		ofPoint p1 = polyline.getVertices()[i+1];
-//		ofVec2f n1 = polyline.getNormalAtIndex(i+1); // miter
 
 		mesh.addVertex(p0);
 		mesh.addIndex(i);
 		mesh.addNormal(n0);
 
 		mesh.addColor(ofFloatColor(1.0, 0, 0, 1.0));
-//		float length = thickness / n0.dot(n0);
 		float length = thickness;
 
 		meshUp.addVertex(p0+n0*length);
@@ -132,9 +128,11 @@ void ofApp::drawPolygonAndNormals()
 	for(int i=0; i<polylineToDraw.getVertices().size(); i++){
 		ofVec3f normal =  polylineToDraw.getNormalAtIndex(i);
 		ofPoint p = polylineToDraw.getVertices()[i];
+		// expand the normal to one direction
 		normal *= thickness;
 		ofLine(p.x, p.y, p.x+normal.x, p.y+normal.y);
 		normal *=-1;
+		// expand the normal to other direction
 		ofLine(p.x, p.y, p.x+normal.x, p.y+normal.y);
 	}
 	ofSetColor(0,255,255);

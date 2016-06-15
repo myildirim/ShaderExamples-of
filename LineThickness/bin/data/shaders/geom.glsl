@@ -13,17 +13,16 @@ void main() {
     vec3 p1 = gl_in[1].gl_Position.xyz;
     vec3 n1 = vNormal[1];
 
-    float length = thickness;
-    gl_Position = gl_in[0].gl_Position + (vec4(-n0.x, n0.y, 0.0, 0.0)*length);
+    gl_Position = gl_in[0].gl_Position + (vec4(-n0.x, n0.y, 0.0, 0.0)*thickness);
     EmitVertex();
 
-    gl_Position = gl_in[0].gl_Position - (vec4(-n0.x, n0.y, 0.0, 0.0)*length);
+    gl_Position = gl_in[0].gl_Position - (vec4(-n0.x, n0.y, 0.0, 0.0)*thickness);
     EmitVertex();
 
-    gl_Position = gl_in[1].gl_Position + (vec4(-n1.x, n1.y, 0.0, 0.0)*length);
+    gl_Position = gl_in[1].gl_Position + (vec4(-n1.x, n1.y, 0.0, 0.0)*thickness);
     EmitVertex();
 
-    gl_Position = gl_in[1].gl_Position - (vec4(-n1.x, n1.y, 0.0, 0.0)*length);
+    gl_Position = gl_in[1].gl_Position - (vec4(-n1.x, n1.y, 0.0, 0.0)*thickness);
     EmitVertex();
 
     EndPrimitive();
