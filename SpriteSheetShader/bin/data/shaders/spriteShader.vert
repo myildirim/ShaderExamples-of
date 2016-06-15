@@ -1,37 +1,33 @@
 #version 150
+// based on https://stackoverflow.com/questions/9609423/applying-part-of-a-texture-sprite-sheet-texture-map-to-a-point-sprite-in-ios
+
 uniform mat4 modelViewProjectionMatrix;
 uniform mat4 textureMatrix;
 
-uniform mat4 Projection;
-uniform mat4 Modelview;
-// The radius of the point in OpenGL units, eg: "20.0"
-uniform float PointSize;
-// The size of the sprite being rendered. My sprites are square
-// so I'm just passing in a float.  For non-square sprites pass in
-// the width and height as a vec2.
-uniform vec2 TextureCoordPointSize;
-uniform vec2 TextureCoordIn;
+uniform float pointSize;
+uniform vec2 textureCoordPointSize;
+uniform vec2 textureCoordIn;
+uniform float numRows;
+uniform float numCols;
 
-in float t; // type
 
-in vec4 Position;
-in vec4 ObjectCenter;
-// The top left corner of a given sprite in the sprite-sheet
-//in vec2 TextureCoordIn;
+in float imgType; // type
+in vec4 position;
 
-out vec2 TextureCoord;
-out vec2 TextureSize;
+out vec2 textureCoord;
+out vec2 textureSize;
 
 void main(void)
 {
-    gl_Position = modelViewProjectionMatrix * Position;
-    TextureCoord.x = t;
-    TextureCoord.y = TextureCoordIn.y;
-    TextureSize = vec2(TextureCoordPointSize.x, TextureCoordPointSize.y);
+    float row = int(imgType/numCols) * 1/numRows;
+    float col = mod(imgType, numCols) * 1/numCols;
+    // this is the coordinate offset, modify this to change different parts
+    // of the sprite sheet
+    vec2 calculatedCoordinates = vec2(col,row);
 
-    // This is optional, it is a quick and dirty way to make the points stay the same
-    // size on the screen regardless of distance.
-    gl_PointSize = PointSize;
+    textureCoord = calculatedCoordinates;
+    gl_Position = modelViewProjectionMatrix * position;
+    textureSize = vec2(textureCoordPointSize.x, textureCoordPointSize.y);
+
+    gl_PointSize = pointSize;
 }
-
-// based on https://stackoverflow.com/questions/9609423/applying-part-of-a-texture-sprite-sheet-texture-map-to-a-point-sprite-in-ios

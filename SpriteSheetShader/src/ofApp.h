@@ -23,20 +23,27 @@ public:
 	void gotMessage(ofMessage msg);
 
 	ofShader shader;
-	ofImage img;
-	ofTexture texture;
+	ofImage spriteSheetImg;
+	ofTexture spriteSheetTexture;
+	float spriteSheetNumRows;
+	float spriteSheetNumCols;
+	int numSprites;
+	ofVec2f textureCoordPointSize;
 
     ofVbo vbo;
-    vector <ofVec3f> points;
+	int numVertices;
+	vector <ofVec3f> points;
 	vector <float> types;
-    int numVertices;
 
-    void setupGui();
+
+	void setupGui();
     ofxPanel gui;
-    ofxFloatSlider pSize;
-    ofxVec2Slider coordPSize;
-    ofxVec2Slider coordIn;
+	ofxIntSlider imgType;
+	ofxToggle enableTypeSlider;
+	ofxFloatSlider pointSize;
 
 
-    float counter;
+	bool prevenableTypeSlider;
+
+
 };

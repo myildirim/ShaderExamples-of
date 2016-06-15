@@ -1,6 +1,5 @@
 <group>
-	<pointSize>35</pointSize>
-	<textureCoordPointSize>0.127551, 0.464286</textureCoordPointSize>
-<group/>
-	<TextureCoordIn>0.875, 0</TextureCoordIn>
+	<pointSize>60</pointSize>
+	<textureCoordPointSize>0.125, 0.5</textureCoordPointSize>
+	<imgType>0</imgType>
 </group>
