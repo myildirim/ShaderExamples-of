@@ -10,3 +10,5 @@ All examples are based on latest openframeworks/openframeworks master and comes 
 - VertexRotationShader: Loading multiple textures on shader and rotating each vertex independently depending on mouse position.
 
 All of them uses GLSL ```#version 150```
+
+`git clone` these into your `openFrameworks/apps` directory, e.g. `openFrameworks/apps/ShaderExamples-of`
