@@ -24,7 +24,7 @@ public:
 	ofShader shader;
 	ofVbo vbo;
 
-	vector<ofTexture> textureArray;
+    vector<ofTexture> textureVector;
 
 	vector <ofVec3f> points;
 	vector <ofFloatColor> colors;
@@ -34,4 +34,5 @@ public:
 
 	void setUniformTexture(const ofTexture& tex, int textureLocation);
     void initVbo();
+    void bindMultipleTextures(ofShader &shader, vector<ofTexture> &textureVector);
 };

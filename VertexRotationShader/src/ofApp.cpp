@@ -20,7 +20,7 @@ void ofApp::setup(){
 	carTexture = carImage.getTexture();
 	bikeTexture = bikeImage.getTexture();
 	busTexture = busImage.getTexture();
-	textureArray = {carTexture, bikeTexture, busTexture};
+    textureVector = {carTexture, bikeTexture, busTexture};
 
 	ofEnableArbTex();
 
@@ -49,33 +49,38 @@ void ofApp::update(){
 }
 
 //--------------------------------------------------------------
+
 void ofApp::draw(){
-	ofBackground(0);
+    ofBackground(0);
 
-	shader.begin();
+    shader.begin();
+    bindMultipleTextures( shader, textureVector );
+    vbo.draw(GL_POINTS, 0, (int)points.size());
+    shader.end();
 
-	int numTextures = textureArray.size();
+}
+
+void ofApp::bindMultipleTextures( ofShader & shader, vector<ofTexture> & textureVector )
+{
+    int numTextures = textureVector.size();
 
     // set up a vector of ints to use as 'texture locations' on the gpu
     vector<int> locations;
-	locations.resize(numTextures);
+    locations.resize( numTextures );
 
     // bind textures to locations
-	for(int i=0; i<numTextures; i++){
-		// set texture location
-		locations[i] = i+1;
-		// bind the texture
-		setUniformTexture(textureArray[i],locations[i]);
-	}
+    for(int i=0; i<numTextures; i++){
+        // set texture location
+        locations[i] = i+1;
+        // bind the texture
+        setUniformTexture(textureVector[i],locations[i]);
+    }
 
     // pass the textures (as an array) to the shader
-	const int * l = &locations[0];
-	shader.setUniform1iv("textureArray", l, numTextures);
-
-	vbo.draw(GL_POINTS, 0, (int)points.size());
-	shader.end();
-
+    const int * l = &locations[0];
+    shader.setUniform1iv("textureArray", l, numTextures);
 }
+
 
 void ofApp::setUniformTexture(const ofTexture& tex, int textureLocation){
 	ofTextureData texData = tex.getTextureData();
