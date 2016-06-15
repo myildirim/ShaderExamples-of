@@ -18,38 +18,38 @@ void ofApp::setup(){
 	// init data
 	data.assign(numPoints, 0);
 
-	initMesh(numPoints);
+    mesh = initMesh(numPoints);
 
 }
 
 //--------------------------------------------------------------
-void ofApp::update(){
+void ofApp::update() {
 
-	// increase point size if the mouse is hovered
-	for(int i = 0; i < rows; i++){
-		for(int j = 0; j < cols; j++){
-			int index = i + j*cols;
-			ofVec3f point = mesh.getVertices()[index];
+    int maxIndex = rows * cols;
 
-			if(ofDist(ofGetMouseX(), ofGetMouseY(), point.x, point.y) < 100){
-				data.at(index)+=5;
-			}
-		}
-	}
+    // increase point size if the mouse is hovered
+    for ( int index = 0; index < maxIndex; index++ ) {
+        ofVec3f point = mesh.getVertices()[index];
+        if ( ofDist( ofGetMouseX(), ofGetMouseY(), point.x, point.y ) < 100 ) {
+            data.at( index ) += 5;
+        }
+    }
 
-	// decrease point size automatically overtime
-	for(int i=0; i<rows*cols; i++){
-		float dataValue = data.at(i);
-		if(dataValue>0){
-			data.at(i)--;
-		}
-	}
+    // decrease point size automatically overtime
+    for ( int index = 0; index < maxIndex; index++ ) {
+        float dataValue = data.at( index );
+        if ( dataValue > 0 ) {
+            data.at( index )--;
+        }
+    }
 
-	// pass the pointsizes as data array to the VBO
-	mesh.getVbo().setAttributeData(shader.getAttributeLocation("pointsize"),
-									   &data[0], 1,
-									   data.size(), GL_STATIC_DRAW, sizeof(float));
-
+    // pass the pointsizes as data array to the VBO
+    mesh.getVbo().setAttributeData( shader.getAttributeLocation( "pointsize" ),
+                                    &data[0],
+                                    1,
+                                    data.size(),
+                                    GL_STATIC_DRAW,
+                                    sizeof( float ) );
 }
 
 //--------------------------------------------------------------
@@ -67,7 +67,8 @@ void ofApp::draw(){
 }
 
 //--------------------------------------------------------------
-void ofApp::initMesh(int numPoints){
+ofVboMesh ofApp::initMesh(int numPoints){
+    ofVboMesh mesh;
 	mesh.setMode(OF_PRIMITIVE_POINTS);
 	mesh.getVertices().resize(numPoints);
 	mesh.getColors().resize(numPoints);
@@ -91,6 +92,7 @@ void ofApp::initMesh(int numPoints){
 
 		}
 	}
+    return mesh;
 }
 
 //--------------------------------------------------------------

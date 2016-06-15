@@ -5,33 +5,32 @@
 
 class ofApp : public ofBaseApp{
 
-public:
-	void setup();
-	void update();
-	void draw();
+  public:
+    void setup();
+    void update();
+    void draw();
 
-	void keyPressed(int key);
-	void keyReleased(int key);
-	void mouseMoved(int x, int y );
-	void mouseDragged(int x, int y, int button);
-	void mousePressed(int x, int y, int button);
-	void mouseReleased(int x, int y, int button);
-	void mouseEntered(int x, int y);
-	void mouseExited(int x, int y);
-	void windowResized(int w, int h);
-	void dragEvent(ofDragInfo dragInfo);
-	void gotMessage(ofMessage msg);
+    void keyPressed( int key );
+    void keyReleased( int key );
+    void mouseMoved( int x, int y );
+    void mouseDragged( int x, int y, int button );
+    void mousePressed( int x, int y, int button );
+    void mouseReleased( int x, int y, int button );
+    void mouseEntered( int x, int y );
+    void mouseExited( int x, int y );
+    void windowResized( int w, int h );
+    void dragEvent( ofDragInfo dragInfo );
+    void gotMessage( ofMessage msg );
 
-	void initMesh(int numPoints);
+    ofVboMesh initMesh( int numPoints );
 
-	ofShader shader;
-	ofImage dotImg;
+    ofShader shader;
+    ofImage dotImg;
 
-	ofVboMesh mesh;
+    ofVboMesh mesh; /// storing the point positions and colors
 
-	vector<float> data;
+    vector<float> data; /// storing the point sizes
 
-	int rows;
-	int cols;
-
+    int rows;
+    int cols;
 };

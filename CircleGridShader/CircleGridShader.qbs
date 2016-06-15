@@ -15,6 +15,8 @@ Project{
             'src/main.cpp',
             'src/ofApp.cpp',
             'src/ofApp.h',
+            'bin/data/shaders/circleShader.frag',
+            'bin/data/shaders/circleShader.vert',
         ]
 
         of.addons: [
