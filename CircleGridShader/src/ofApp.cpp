@@ -15,12 +15,8 @@ void ofApp::setup(){
 	cols = 10;
 	int numPoints = rows*cols;
 
-	data.resize(numPoints);
-
-	// initialize data
-	for(int i=0; i<rows*cols; i++){
-		data.at(i) = ofRandom(5,20);
-	}
+	// init data
+	data.assign(numPoints, 0);
 
 	initMesh(numPoints);
 
@@ -65,7 +61,6 @@ void ofApp::draw(){
 	shader.begin();
 	dotImg.bind();
 	mesh.draw();
-
 	dotImg.unbind();
 	shader.end();
 
